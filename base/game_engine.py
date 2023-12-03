@@ -1,17 +1,27 @@
+import time
+
+from typing import List
+
 from base.entity import Entity
 from base.system import System
 
+
 class GameEngine:
-    entities = []
-    systems = []
+    entities: List[Entity] = []
+    systems: List[System] = []
 
     def __init__(self) -> None:
         pass
 
     def run(self):
         self.start()
+        start_time = end_time = time.time()
+
         while True:
-            self.update()
+            delta_time = end_time - start_time
+            start_time = end_time
+            self.update(delta_time)
+            end_time = time.time()
 
     def add_entity(self, entity: Entity):
         self.entities.append(entity)
@@ -28,7 +38,7 @@ class GameEngine:
     def start(self):
         pass
 
-    def update(self):
+    def update(self, delta_time):
         for system in self.systems:
-            system.update(self.entities)
+            system.update(delta_time, self.entities)
 

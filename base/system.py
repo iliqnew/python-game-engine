@@ -1,4 +1,7 @@
 
 
 class System:
-    pass
+    def update(self):
+        """
+        Updates the system
+        """
